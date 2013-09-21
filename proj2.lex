@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstdlib>
 
 using namespace std;
 int line_count = 0;
@@ -14,7 +15,7 @@ int line_count = 0;
 int                     {yylval.lexeme = strdup(yytext); return TYPE;}
 print                   {yylval.lexeme = strdup(yytext); return COMMAND;}
 [_a-zA-Z][_a-zA-Z0-9]*  {yylval.lexeme = strdup(yytext); return ID;}
-[0-9]+                  {yylval.lexeme = strdup(yytext); return STATIC_INT;}
+[0-9]+                  {yylval = atoi(yytext); return STATIC_INT;}
 #.*                     /* ignore comments */
 "/*"([^\*]|\*[^/])*"*/" /* ignore multi-line comments */
 [*\-*/%()]|[+\-*/%]?=   {yylval.lexeme = strdup(yytext); return OPERATOR;}
